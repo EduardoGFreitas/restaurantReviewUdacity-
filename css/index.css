@@ -1,0 +1,21 @@
+nav {
+  display: flex;
+}
+
+.filter-options {
+  display: flex;
+}
+
+#restaurants-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+#restaurants-list li {
+  padding: 30px 25px;
+}
+
+#restaurants-list li {
+  text-align: center;
+}

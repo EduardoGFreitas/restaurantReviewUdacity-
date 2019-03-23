@@ -194,6 +194,30 @@ createRestaurantHTML = restaurant => {
 };
 
 /**
+ * Add S.W.
+ */
+
+// if ('serviceWorker' in navigator) {
+//   navigator.serviceWorker
+//     .register('./service_workers.js')
+//     .then(reg => {
+//       if (reg.installing) {
+//         console.log('Registration installing');
+//       }
+//       if (reg.waiting) {
+//         console.log('Registration waiting');
+//       }
+//       if (reg.active) {
+//         console.log('Registration active');
+//       }
+//     })
+//     .catch(error => console.log('Registration failed', error));
+//   navigator.serviceWorker.register('/service_workers.js', {
+//     scope: '/'
+//   });
+// }
+
+/**
  * Add markers for current restaurants to the map.
  */
 addMarkersToMap = (restaurants = self.restaurants) => {
