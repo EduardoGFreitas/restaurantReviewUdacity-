@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <link
       rel="stylesheet"
@@ -30,17 +30,19 @@
       </nav>
     </header>
 
-    <main id="maincontent" tabindex="1">
-      <section id="map-container" tabindex="2">
+    <main id="maincontent" tabindex="1" role="main">
+      <section id="map-container" tabindex="2"
+      role="application" aria-label="Map with restaurants">
         <div id="map"></div>
       </section>
-      <section>
-        <div class="filter-options">
+      <section  aria-label="Restaurants filter and list section">
+        <div class="filter-options"  role="form" aria-label="Restaurant filter">
           <h2>Filter Results</h2>
           <select
             id="neighborhoods-select"
             name="neighborhoods"
             onchange="updateRestaurants()"
+            role="listbox" aria-label="Neighborhood selection" 
           >
             <option value="all">All Neighborhoods</option>
           </select>
@@ -48,6 +50,7 @@
             id="cuisines-select"
             name="cuisines"
             onchange="updateRestaurants()"
+            role="listbox" aria-label="Cuisine selection"
           >
             <option value="all">All Cuisines</option>
           </select>
