@@ -1,64 +1,60 @@
-let staticCacheName = 'restaurant-static-v1';
-
-const urlCache = [
-  '/',
-  '/img/1.jpg',
-  '/img/2.jpg',
-  '/img/3.jpg',
-  '/img/4.jpg',
-  '/img/5.jpg',
-  '/img/6.jpg',
-  '/img/7.jpg',
-  '/img/8.jpg',
-  '/img/9.jpg',
-  '/img/10.jpg',
-  '/img/10.jpg',
-  'restaurant.html',
-  '/js/main.js',
-  '/js/dbhelper.js',
-  '/js/restaurant_info.js',
-  '/data/restaurants.json'
+let CACHE_NAME = 'restaurant-review-cache_v1';
+let urlsToCache = [
+  './',
+  './index.html',
+  './restaurant.html',
+  './css/styles.css',
+  './css/restaurant.css',
+  './css/index.css',
+  './data/restaurants.json',
+  './js/dbhelper.js',
+  './js/main.js',
+  './js/restaurant_info.js',
+  './js/service_workers_reg.js',
+  './img/1.jpg',
+  './img/2.jpg',
+  './img/3.jpg',
+  './img/4.jpg',
+  './img/5.jpg',
+  './img/6.jpg',
+  './img/7.jpg',
+  './img/8.jpg',
+  './img/9.jpg',
+  './img/10.jpg'
 ];
 
-self.addEventListener('install', event => {
+self.addEventListener('install', function(event) {
+  // Perform install steps
   event.waitUntil(
-    caches
-      .open(staticCacheName)
-      .then(cache => {
-        return cache.addAll(urlCache);
-      })
-      .catch(error => console.log(error))
+    caches.open(CACHE_NAME).then(function(cache) {
+      console.log('Opened cache');
+      return cache.addAll(urlsToCache);
+    })
   );
 });
 
-self.addEventListener('activate', event => {
-  const cacheWhitelist = [staticCacheName];
-  console.log(cacheWhitelist);
+self.addEventListener('activate', function(event) {
   event.waitUntil(
-    caches.keys().then(cacheNames => {
-      console.log(cacheNames);
+    caches.keys().then(function(cacheNames) {
       return Promise.all(
-        cacheNames.map(cacheName => {
-          if (cacheWhitelist.indexOf(cacheName) === -1) {
+        cacheNames
+          .filter(function(cacheName) {
+            return (
+              cacheName.startsWith('restaurant-') && cacheName != CACHE_NAME
+            );
+          })
+          .map(function(cacheName) {
             return caches.delete(cacheName);
-          }
-        })
+          })
       );
     })
   );
 });
 
-self.addEventListener('fetch', event => {
+self.addEventListener('fetch', function(event) {
   event.respondWith(
-    caches.match(event.request).then(response => {
-      console.log(response);
+    caches.match(event.request).then(function(response) {
       return response || fetch(event.request);
     })
   );
-});
-
-self.addEventListener('message', function(event) {
-  if (event.data.action === 'skipWaiting') {
-    self.skipWaiting();
-  }
 });
